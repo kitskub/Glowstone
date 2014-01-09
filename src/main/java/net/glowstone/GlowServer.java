@@ -11,6 +11,7 @@ import net.glowstone.net.SessionRegistry;
 import net.glowstone.scheduler.GlowScheduler;
 import net.glowstone.util.PlayerListFile;
 import net.glowstone.util.ServerConfig;
+import net.glowstone.util.SecurityUtils;
 import net.glowstone.util.bans.BanManager;
 import net.glowstone.util.bans.FlatFileBanManager;
 import org.bukkit.*;
@@ -43,6 +44,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.security.KeyPair;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -207,6 +209,11 @@ public final class GlowServer implements Server {
      * A cache of existing OfflinePlayers
      */
     private final Map<String, OfflinePlayer> offlineCache = new ConcurrentHashMap<String, OfflinePlayer>();
+
+    /**
+     * A RSA key pair used for encryption and authentication
+     */
+    private final KeyPair keyPair = SecurityUtils.generateKeyPair();
 
     /**
      * Creates a new server.
@@ -438,6 +445,14 @@ public final class GlowServer implements Server {
      */
     public SessionRegistry getSessionRegistry() {
         return sessions;
+    }
+
+    /**
+     * Get the key pair generated at server start up
+     * @return The key pair generated at server start up
+     */
+    public KeyPair getKeyPair() {
+        return keyPair;
     }
     
     /**
