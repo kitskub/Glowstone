@@ -31,11 +31,8 @@ public class EncryptionKeyResponseHandler extends MessageHandler<EncryptionKeyRe
         final Cipher rsaCipher = SecurityUtils.generateRSACipher(Cipher.DECRYPT_MODE, session.getServer().getKeyPair().getPrivate());
 
         GlowServer.logger.log(Level.INFO, "Created cipher using private rsa key");
-
-        GlowServer.logger.log(Level.INFO, "Shared secret: {0}", message.getSharedSecret());
-        GlowServer.logger.log(Level.INFO, "Shared secret length: {0}", message.getSharedSecret().length);
-        GlowServer.logger.log(Level.INFO, "Verify Token: {0}", message.getVerifyToken());
-        GlowServer.logger.log(Level.INFO, "Verify Token length: {0}", message.getVerifyToken().length);
+        GlowServer.logger.log(Level.INFO, "Shared secret: {0}, length {1}", new Object[] {message.getSharedSecret(), message.getSharedSecret().length});
+        GlowServer.logger.log(Level.INFO, "Verify Token: {0}, length {1}", new Object[] {message.getVerifyToken(), message.getVerifyToken().length});
 
         //Decrypt the shared secret and verify token using our private key in an rsa cipher.
         final byte[] sharedSecret = rsaCipher.update(message.getSharedSecret());

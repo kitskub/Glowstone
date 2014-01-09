@@ -22,7 +22,6 @@ public final class EncryptionKeyRequestMessage extends Message {
 
         buf.writeShort(publicKey.length);
         buf.writeBytes(publicKey);
-
         buf.writeShort(verifyToken.length);
         buf.writeBytes(verifyToken);
     }

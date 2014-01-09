@@ -1,5 +1,6 @@
 package net.glowstone.net.handler;
 
+import net.glowstone.GlowServer;
 import net.glowstone.entity.GlowPlayer;
 import net.glowstone.net.Session;
 import net.glowstone.net.message.login.EncryptionKeyRequestMessage;
@@ -7,6 +8,7 @@ import net.glowstone.net.message.login.LoginStartMessage;
 import net.glowstone.util.SecurityUtils;
 
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class LoginStartHandler extends MessageHandler<LoginStartMessage> {
     @Override
@@ -25,6 +27,7 @@ public class LoginStartHandler extends MessageHandler<LoginStartMessage> {
             session.setVerifyUsername(message.getUsername());
 
             //Send created request message and wait for the response
+            GlowServer.logger.log(Level.INFO, "Login Start Handler, Session Id: {0}", session.getSessionId());
             session.send(new EncryptionKeyRequestMessage(session.getSessionId(), publicKey, verifyToken));
         } else {
             UUID uid = new UUID(0, username.hashCode());
