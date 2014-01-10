@@ -27,8 +27,8 @@ public class LoginStartHandler extends MessageHandler<LoginStartMessage> {
             session.setVerifyUsername(message.getUsername());
 
             //Send created request message and wait for the response
-            GlowServer.logger.log(Level.INFO, "Login Start Handler, Session Id: {0}", session.getSessionId());
-            session.send(new EncryptionKeyRequestMessage(session.getSessionId(), publicKey, verifyToken));
+            GlowServer.logger.log(Level.INFO, "Login Start Handler, Session Id: {0}", sessionId);
+            session.send(new EncryptionKeyRequestMessage(sessionId, publicKey, verifyToken));
         } else {
             UUID uid = new UUID(0, username.hashCode());
             session.setPlayer(new GlowPlayer(session, username, uid));
