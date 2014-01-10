@@ -1,26 +1,23 @@
 package net.glowstone.io.mcregion;
 
+import net.glowstone.GlowChunk;
+import net.glowstone.GlowServer;
+import net.glowstone.block.GlowBlockState;
+import net.glowstone.io.ChunkIoService;
+import net.glowstone.io.blockstate.BlockStateStore;
+import net.glowstone.io.blockstate.BlockStateStoreLookupService;
+import net.glowstone.io.mcregion.region.RegionFile;
+import net.glowstone.io.mcregion.region.RegionFileCache;
+import net.glowstone.util.nbt.*;
+
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import net.glowstone.GlowServer;
-import net.glowstone.block.GlowBlockState;
-import net.glowstone.io.ChunkIoService;
-import net.glowstone.io.StorageOperation;
-import net.glowstone.io.blockstate.BlockStateStore;
-import net.glowstone.io.blockstate.BlockStateStoreLookupService;
-import net.glowstone.io.mcregion.region.RegionFile;
-import net.glowstone.io.mcregion.region.RegionFileCache;
-import net.glowstone.GlowChunk;
-import net.glowstone.GlowWorld;
-import net.glowstone.util.nbt.*;
-import org.bukkit.block.BlockState;
 
 /**
  * An implementation of the {@link net.glowstone.io.ChunkIoService} which reads and writes
@@ -46,7 +43,7 @@ public final class McRegionChunkIoService implements ChunkIoService {
     /**
      * The region file cache.
      */
-    private final RegionFileCache cache = new RegionFileCache();
+    private final RegionFileCache cache = new RegionFileCache(".mcr");
 
     // TODO: consider the session.lock file
 
